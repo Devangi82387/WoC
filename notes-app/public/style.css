@@ -1,0 +1,32 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+}
+
+.form {
+  max-width: 400px;
+  margin: auto;
+}
+
+input, textarea, button {
+  width: 100%;
+  margin: 5px 0;
+  padding: 8px;
+}
+
+.note {
+  background: white;
+  padding: 10px;
+  margin: 10px auto;
+  max-width: 400px;
+  border-radius: 5px;
+}
+
+.note button {
+  margin-right: 5px;
+}
