@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const ServiceProviderSchema = new mongoose.Schema({
   name: {
@@ -12,15 +12,14 @@ const ServiceProviderSchema = new mongoose.Schema({
   },
   mobileNo: {
     type: String,
-    required: true,
   },
   description: {
     type: String
   },
   category: {
-  type: mongoose.Schema.Types.ObjectId,
-  ref: "Category",
-  required: true
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Category",
+    required: true
   },
   city: {
     type: String
@@ -38,4 +37,4 @@ const ServiceProviderSchema = new mongoose.Schema({
   }
 });
 
-module.exports = mongoose.model("ServiceProvider", ServiceProviderSchema);
+export default mongoose.model("ServiceProvider", ServiceProviderSchema);

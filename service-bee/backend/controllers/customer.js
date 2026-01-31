@@ -1,10 +1,8 @@
-const Customer = require("../models/Customer");
-const bcrypt = require("bcryptjs");
-const generateToken = require("../config/jwt");
+import Customer from "../models/Customer.js";
+import bcrypt from "bcryptjs";
+import generateToken from "../config/jwt.js";
 
-
-// REGISTER
-exports.registerCustomer = async (req, res) => {
+export const registerCustomer = async (req, res) => {
   try {
     const { firstName, lastName, username, email, password, mobileNo, age, gender } = req.body;
 
@@ -35,8 +33,8 @@ exports.registerCustomer = async (req, res) => {
   }
 };
 
-// LOGIN
-exports.loginCustomer = async (req, res) => {
+
+export const loginCustomer = async (req, res) => {
   try {
     const { email, password } = req.body;
 
@@ -56,5 +54,19 @@ exports.loginCustomer = async (req, res) => {
     });
   } catch (err) {
     res.status(500).json({ error: err.message });
+  }
+};
+
+export const getCustomerProfile = async (req, res) => {
+  try {
+    const customer = await Customer.findById(req.user.id).select("-password");
+
+    if (!customer) {
+      return res.status(404).json({ message: "Customer not found" });
+    }
+
+    res.json(customer);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
 };

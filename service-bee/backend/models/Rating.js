@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const RatingSchema = new mongoose.Schema({
   booking: {
@@ -22,8 +22,8 @@ const RatingSchema = new mongoose.Schema({
     min: 1,
     max: 5,
     required: true,
-    default:3
+    default: 3
   }
 });
 
-module.exports = mongoose.model("Rating", RatingSchema);
+export default mongoose.model("Rating", RatingSchema);

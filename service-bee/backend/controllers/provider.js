@@ -1,9 +1,8 @@
-const ServiceProvider = require("../models/ServiceProvider");
-const bcrypt = require("bcryptjs");
-const generateToken = require("../config/jwt");
+import ServiceProvider from "../models/ServiceProvider.js";
+import bcrypt from "bcryptjs";
+import generateToken from "../config/jwt.js";
 
-// REGISTER
-exports.registerProvider = async (req, res) => {
+export const registerProvider = async (req, res) => {
   try {
     const { name, email, mobileNo, description, category, city, budget, password } = req.body;
 
@@ -34,8 +33,7 @@ exports.registerProvider = async (req, res) => {
   }
 };
 
-// LOGIN
-exports.loginProvider = async (req, res) => {
+export const loginProvider = async (req, res) => {
   try {
     const { email, password } = req.body;
 
@@ -53,6 +51,42 @@ exports.loginProvider = async (req, res) => {
       message: "Login successful",
       token: generateToken(provider._id, "provider")
     });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+export const getProviders = async (req, res) => {
+  try {
+    const providers = await ServiceProvider.find().populate("category", "name");
+    res.json(providers);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+export const searchProviders = async (req, res) => {
+  try {
+    const { city, category } = req.query;
+
+    const filter = {};
+    if (city) filter.city = city;
+    if (category) filter.category = category;
+
+    const providers = await ServiceProvider.find(filter).populate("category");
+    res.json(providers);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+export const getProviderById = async (req, res) => {
+  try {
+    const provider = await ServiceProvider.findById(req.params.id).populate("category", "name");
+    if (!provider) {
+      return res.status(404).json({ message: "Provider not found" });
+    }
+    res.json(provider);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

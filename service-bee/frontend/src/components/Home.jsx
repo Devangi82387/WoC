@@ -13,6 +13,7 @@ const Home = () => {
       <h1>Welcome! Choose your role:</h1>
       <button onClick={() => setType("customer")}>Customer</button>
       <button onClick={() => setType("provider")}>Service Provider</button>
+      <button onClick={() => setType("Admin")}>Admin</button>
     </div>
   );
 };

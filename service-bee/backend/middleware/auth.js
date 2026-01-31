@@ -1,7 +1,7 @@
-const jwt = require("jsonwebtoken");
+import jwt from "jsonwebtoken";
 
 // Protect routes
-const protect = (roles = []) => {
+export const protect = (roles = []) => {
   return (req, res, next) => {
     let token;
 
@@ -32,5 +32,3 @@ const protect = (roles = []) => {
     }
   };
 };
-
-module.exports = { protect };
