@@ -1,0 +1,92 @@
+import Admin from "../models/Admin.js";
+import bcrypt from "bcryptjs";
+import generateToken from "../config/jwt.js";
+
+
+export const registerAdmin = async (req, res) => {
+
+  try {
+
+    const { username, email, password } = req.body;
+
+    const exists = await Admin.findOne({ email });
+
+    if (exists) {
+      return res.status(400).json({
+        message: "Admin already exists"
+      });
+    }
+
+    const hashedPassword =
+      await bcrypt.hash(password, 10);
+
+    const admin =
+      await Admin.create({
+        username,
+        email,
+        password: hashedPassword
+      });
+
+    res.status(201).json({
+
+      message: "Admin registered successfully",
+      token: generateToken(
+        admin._id,
+        "admin"
+      )
+    });
+
+  }
+  catch (err) {
+    res.status(500).json({
+      error: err.message
+    });
+  }
+};
+
+
+export const loginAdmin = async (req, res) => {
+
+  try {
+
+    const { email, password } = req.body;
+
+    const admin =
+      await Admin.findOne({ email });
+
+    if (!admin) {
+      return res.status(400).json({
+        message: "Invalid credentials"
+      });
+    }
+
+    const isMatch =
+      await bcrypt.compare(
+        password,
+        admin.password
+      );
+
+    if (!isMatch) {
+      return res.status(400).json({
+        message: "Invalid credentials"
+      });
+    }
+
+    res.json({
+      message: "Login successful",
+
+      token: generateToken(
+        admin._id,
+        "admin"
+      )
+    });
+
+  }
+  catch (err) {
+    res.status(500).json({
+      error: err.message
+    });
+  }
+};
+
+

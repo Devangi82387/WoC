@@ -47,8 +47,32 @@ export const deleteCategory = async (req, res) => {
 
 export const getCategories = async (req, res) => {
   try {
-    const categories = await Category.find();
-    res.json(categories);
+
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 5;
+    const search = req.query.search || "";
+
+    // calculate skip
+    const skip = (page - 1) * limit;
+
+    const filter = {
+      name: { $regex: search, $options: "i" } // case-insensitive search
+    };
+
+    const categories = await Category.find(filter)
+      .skip(skip)
+      .limit(limit);
+
+    // total count for pagination
+    const total = await Category.countDocuments(filter);
+
+    res.json({
+      categories,
+      total,
+      page,
+      pages: Math.ceil(total / limit)
+    });
+
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

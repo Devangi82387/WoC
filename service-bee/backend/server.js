@@ -8,6 +8,7 @@ import providerRoutes from "./routes/provider.js";
 import bookingRoutes from "./routes/booking.js";
 import categoryRoutes from "./routes/category.js";
 import ratingRoutes from "./routes/rating.js";
+import adminRoutes from "./routes/admin.js";
 
 dotenv.config();
 connectDB();
@@ -28,6 +29,7 @@ app.use("/provider", providerRoutes);
 app.use("/bookings", bookingRoutes);
 app.use("/categories", categoryRoutes);
 app.use("/ratings", ratingRoutes);
+app.use("/admin", adminRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

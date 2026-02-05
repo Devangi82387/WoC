@@ -7,6 +7,9 @@ import CustomerDashboard from "./components/CustomerDashboard";
 import MyBookings from "./components/MyBookings";
 import ProviderDashboard from "./components/ProviderDashboard";
 import BookingForm from "./components/BookingForm";
+import CategoryManagement from "./components/CategoryManagement";
+import AdminDashboard from "./components/AdminDashboard";
+import AdminAuth from "./components/AdminAuth";
 
 function App() {
   return (
@@ -15,10 +18,13 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/customer" element={<CustomerAuth />} />
         <Route path="/provider" element={<ServiceProviderAuth />} />
+        <Route path="/admin" element={<AdminAuth />} />
         <Route path="/customerDashboard" element={<CustomerDashboard />} />
         <Route path="/mybookings" element={<MyBookings />} />
         <Route path="/providerDashboard" element={<ProviderDashboard />} />
         <Route path="/book/:id" element={<BookingForm />} />
+        <Route path="/adminDashboard" element={<AdminDashboard />} />
+        <Route path="/admin/category" element={<CategoryManagement />} />
       </Routes>
     </Router>
   );
