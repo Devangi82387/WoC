@@ -1,0 +1,90 @@
+/* Full page dark background */
+body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #020617, #0f172a);
+  font-family: "Segoe UI", sans-serif;
+}
+
+
+/* Main container */
+.auth-container {
+  width: 400px;
+  margin: 60px auto;
+  padding: 30px;
+  background: #111827;
+  border-radius: 12px;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.7);
+  text-align: center;
+}
+
+
+/* Headings */
+.auth-container h2 {
+  color: #f9fafb;
+  margin-bottom: 20px;
+}
+
+.auth-container h4 {
+  color: #9ca3af;
+}
+
+
+/* Form */
+.auth-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+
+/* Inputs */
+.auth-container input,
+.auth-container select {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #374151;
+  background: #020617;
+  color: #f9fafb;
+  font-size: 14px;
+}
+
+
+/* Input focus */
+.auth-container input:focus,
+.auth-container select:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 5px #2563eb;
+}
+
+
+/* Buttons */
+.auth-container button {
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  background: #2563eb;
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+
+/* Button hover */
+.auth-container button:hover {
+  background: #1d4ed8;
+  transform: translateY(-2px);
+}
+
+
+/* Secondary button (Register/Login switch) */
+.auth-container button:last-child {
+  background: #374151;
+}
+
+.auth-container button:last-child:hover {
+  background: #4b5563;
+}
+

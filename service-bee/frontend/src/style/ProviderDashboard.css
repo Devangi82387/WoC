@@ -1,0 +1,106 @@
+/* Dark Theme Background */
+.provider-dashboard {
+  min-height: 100vh;
+  padding: 30px;
+  background: linear-gradient(135deg, #0f172a, #020617);
+  color: #e2e8f0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Heading */
+.provider-dashboard h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 28px;
+  color: #38bdf8;
+}
+
+/* Rating Box */
+.rating-box {
+  background: #020617;
+  border: 1px solid #1e293b;
+  padding: 15px;
+  margin-bottom: 25px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.2);
+}
+
+.rating-box h3 {
+  margin: 0;
+  font-weight: 500;
+}
+
+/* Booking Card */
+.booking-card {
+  background: #020617;
+  border: 1px solid #1e293b;
+  border-radius: 12px;
+  padding: 18px;
+  margin-bottom: 18px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+  transition: all 0.3s ease;
+}
+
+/* Hover effect */
+.booking-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0 18px rgba(56, 189, 248, 0.4);
+  border-color: #38bdf8;
+}
+
+/* Text inside card */
+.booking-card p {
+  margin: 6px 0;
+  font-size: 15px;
+}
+
+/* Dropdown */
+.booking-card select {
+  margin-top: 10px;
+  padding: 6px 10px;
+  background: #0f172a;
+  color: #e2e8f0;
+  border: 1px solid #38bdf8;
+  border-radius: 6px;
+  outline: none;
+  cursor: pointer;
+}
+
+/* Disabled dropdown */
+.booking-card select:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Chat Button */
+.booking-card button {
+  margin-top: 10px;
+  padding: 6px 14px;
+  background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+  color: #020617;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+/* Hover button */
+.booking-card button:hover {
+  background: linear-gradient(135deg, #0ea5e9, #38bdf8);
+  transform: scale(1.05);
+}
+
+/* No bookings text */
+.provider-dashboard p {
+  text-align: center;
+  font-size: 16px;
+  color: #94a3b8;
+}
+
+/* Loading text */
+.provider-dashboard > p {
+  text-align: center;
+  font-size: 18px;
+}

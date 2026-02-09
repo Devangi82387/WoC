@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import api from "../api/axios";
 import { useNavigate } from "react-router-dom";
 
+import "../style/Auth.css";
+
 
 const ServiceProviderAuth = () => {
   const navigate = useNavigate();
@@ -24,7 +26,7 @@ const ServiceProviderAuth = () => {
     const fetchCategories = async () => {
       try {
         const res = await api.get("/categories");
-        setCategories(res.data);
+        setCategories(res.data.categories);
       } catch (err) {
         console.error("Failed to load categories");
       }
@@ -99,6 +101,7 @@ const ServiceProviderAuth = () => {
       <button onClick={() => setMode(mode === "login" ? "register" : "login")}>
         {mode === "login" ? "Register" : "Login"}
       </button>
+
     </div>
   );
 };

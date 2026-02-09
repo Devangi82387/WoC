@@ -1,0 +1,174 @@
+.category-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #020617, #0f172a);
+  color: #e2e8f0;
+  padding: 30px;
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* Header */
+.category-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.category-header h1 {
+  color: #38bdf8;
+}
+
+/* Back button */
+.back-btn {
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: none;
+  background: #1e293b;
+  color: #e2e8f0;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.back-btn:hover {
+  background: #38bdf8;
+  color: black;
+}
+
+/* Search */
+.search-box {
+  margin-bottom: 20px;
+}
+
+.search-box input {
+  width: 300px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #1e293b;
+  background: #020617;
+  color: white;
+}
+
+.search-box input:focus {
+  outline: none;
+  border-color: #38bdf8;
+}
+
+/* Add category */
+.add-category {
+  margin-bottom: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+.add-category input {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #1e293b;
+  background: #020617;
+  color: white;
+}
+
+.add-category button {
+  padding: 10px 18px;
+  border-radius: 8px;
+  border: none;
+  background: #38bdf8;
+  color: black;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.add-category button:hover {
+  background: #0ea5e9;
+}
+
+/* Category list */
+.category-list {
+  background: #020617;
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid #1e293b;
+}
+
+.category-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  border-bottom: 1px solid #1e293b;
+}
+
+.category-item:last-child {
+  border-bottom: none;
+}
+
+.category-name {
+  font-size: 16px;
+}
+
+/* Buttons */
+.category-actions button {
+  margin-left: 10px;
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.edit-btn {
+  background: #f59e0b;
+  color: black;
+}
+
+.edit-btn:hover {
+  background: #d97706;
+}
+
+.delete-btn {
+  background: #ef4444;
+  color: white;
+}
+
+.delete-btn:hover {
+  background: #dc2626;
+}
+
+.save-btn {
+  background: #22c55e;
+  color: black;
+}
+
+.save-btn:hover {
+  background: #16a34a;
+}
+
+/* Pagination */
+.pagination {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.pagination button {
+  padding: 8px 16px;
+  margin: 5px;
+  border-radius: 8px;
+  border: none;
+  background: #1e293b;
+  color: white;
+  cursor: pointer;
+}
+
+.pagination button:hover:not(:disabled) {
+  background: #38bdf8;
+  color: black;
+}
+
+.pagination button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.pagination span {
+  margin: 0 10px;
+  color: #94a3b8;
+}

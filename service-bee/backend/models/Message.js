@@ -8,14 +8,14 @@ const messageSchema = new mongoose.Schema(
       required: true
     },
 
-    sender: {
+    senderId: {
       type: mongoose.Schema.Types.ObjectId,
       required: true
     },
 
     senderRole: {
       type: String,
-      enum: ["admin", "customer"],
+      enum: ["admin", "provider", "customer"],
       required: true
     },
 
@@ -23,7 +23,6 @@ const messageSchema = new mongoose.Schema(
       type: String,
       required: true
     }
-
   },
   { timestamps: true }
 );

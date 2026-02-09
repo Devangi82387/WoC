@@ -2,20 +2,40 @@ import mongoose from "mongoose";
 
 const conversationSchema = new mongoose.Schema(
   {
-    customer: {
+    bookingId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Booking",
+      required: true,
+      unique: true
+    },
+
+    providerId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "ServiceProvider",
+      required: true
+    },
+
+    customerId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Customer",
       required: true
     },
 
-    admin: {
+    adminId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Admin",
-      required: true
-    }
+      default: null
+    },
 
+    lastMessage: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Message",
+      default: null
+    }
   },
-  { timestamps: true }
+  {
+    timestamps: true 
+  }
 );
 
 export default mongoose.model("Conversation", conversationSchema);

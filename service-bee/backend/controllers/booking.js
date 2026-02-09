@@ -87,3 +87,17 @@ export const updateBookingStatus = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+export const allBooking = async (req, res) => {
+  try {
+    const bookings = await Booking.find()
+      .populate("customer", "firstName lastName email")
+      .populate("serviceProvider", "name email")
+      .populate("category", "name");
+
+    res.json(bookings);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+};

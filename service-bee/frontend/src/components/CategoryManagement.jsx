@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import api from "../api/axios";
 import { useNavigate } from "react-router-dom";
 
+import "../style/CategoryManagement.css";
+
 const CategoryManagement = () => {
 
   const navigate = useNavigate();
@@ -45,27 +47,25 @@ const CategoryManagement = () => {
 
 
   const handleAddCategory = async () => {
-    if (!newCategory) return;
+  try {
 
-    try {
-
-      await api.post(
-        "/categories",
-        { name: newCategory },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("adminToken")}`
-          }
+    await api.post(
+      "/categories",
+      { name: newCategory },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("adminToken")}`
         }
-      );
+      }
+    );
 
-      setNewCategory("");
-      fetchCategories();
+    setNewCategory("");
+    fetchCategories();
 
-    } catch {
-      alert("Failed to add category");
-    }
-  };
+  } catch (err) {
+    alert(err.response?.data?.message || "Failed to add category");
+  }
+};
 
 
   const handleDelete = async (id) => {
@@ -121,106 +121,119 @@ const CategoryManagement = () => {
 
   return (
 
-    <div style={{ padding: "20px" }}>
+    <div className="category-container">
 
-      <h1>Category Management</h1>
+  <div className="category-header">
+    <h1>Category Management</h1>
+    <button className="back-btn" onClick={goBack}>
+      Back to Dashboard
+    </button>
+  </div>
 
+  <div className="search-box">
+    <input
+      type="text"
+      placeholder="Search category..."
+      value={search}
+      onChange={(e) => {
+        setPage(1);
+        setSearch(e.target.value);
+      }}
+    />
+  </div>
 
-      <input
-        type="text"
-        placeholder="Search category..."
-        value={search}
-        onChange={(e) => {
-          setPage(1);
-          setSearch(e.target.value);
-        }}
-      />
+  <div className="add-category">
+    <input
+      type="text"
+      placeholder="New category"
+      value={newCategory}
+      onChange={(e) => setNewCategory(e.target.value)}
+    />
 
+    <button onClick={handleAddCategory}>
+      Add
+    </button>
+  </div>
 
-      <div>
-        <input
-          type="text"
-          placeholder="New category"
-          value={newCategory}
-          onChange={(e) => setNewCategory(e.target.value)}
-        />
+  <div className="category-list">
 
-        <button onClick={handleAddCategory}>
-          Add
-        </button>
+    {categories.map((category) => (
 
-      </div>
+      <div key={category._id} className="category-item">
 
-      <ul>
+        {editId === category._id ? (
 
-        {categories.map((category) => (
+          <>
+            <input
+              value={editName}
+              onChange={(e) => setEditName(e.target.value)}
+            />
 
-          <li key={category._id}>
+            <div className="category-actions">
+              <button className="save-btn" onClick={handleUpdate}>
+                Save
+              </button>
+            </div>
+          </>
 
-            {editId === category._id ? (
-              <>
-                <input
-                  value={editName}
-                  onChange={(e) => setEditName(e.target.value)}
-                />
+        ) : (
 
-                <button onClick={handleUpdate}>
-                  Save
-                </button>
-              </>
+          <>
+            <span className="category-name">
+              {category.name}
+            </span>
 
-            ) : (
+            <div className="category-actions">
 
-              <>
-                {category.name}
+              <button
+                className="edit-btn"
+                onClick={() => startEdit(category)}
+              >
+                Edit
+              </button>
 
-                <button onClick={() => startEdit(category)}>
-                  Edit
-                </button>
+              <button
+                className="delete-btn"
+                onClick={() => handleDelete(category._id)}
+              >
+                Delete
+              </button>
 
-                <button onClick={() => handleDelete(category._id)}>
-                  Delete
-                </button>
-              </>
+            </div>
 
-            )}
+          </>
 
-          </li>
-
-        ))}
-
-      </ul>
-
-      <div style={{ marginTop: "20px" }}>
-
-        <button
-          disabled={page === 1}
-          onClick={() => setPage(page - 1)}
-        >
-          Prev
-        </button>
-
-
-        <span style={{ margin: "10px" }}>
-          Page {page} of {pages}
-        </span>
-
-
-        <button
-          disabled={page === pages}
-          onClick={() => setPage(page + 1)}
-        >
-          Next
-        </button>
+        )}
 
       </div>
 
+    ))}
 
-      <button onClick={goBack}>
-        Back to Dashboard
-      </button>
+  </div>
 
-    </div>
+  <div className="pagination">
+
+    <button
+      disabled={page === 1}
+      onClick={() => setPage(page - 1)}
+    >
+      Prev
+    </button>
+
+    <span>
+      Page {page} of {pages}
+    </span>
+
+    <button
+      disabled={page === pages}
+      onClick={() => setPage(page + 1)}
+    >
+      Next
+    </button>
+
+  </div>
+
+</div>
 
   );
 };

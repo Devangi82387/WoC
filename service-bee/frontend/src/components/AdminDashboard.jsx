@@ -1,43 +1,54 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import "../style/AdminDashboard.css";
 
 const AdminDashboard = () => {
 
   const navigate = useNavigate();
 
   const handleLogout = () => {
-
     localStorage.removeItem("adminToken");
-
     navigate("/");
   };
 
-  const goToCategory = () => {
-
-    navigate("/admin/category");
-  };
-
-  const goToChat = () => {
-
-    navigate("/admin/chat");
-  };
-
   return (
-    <div>
+    <div className="admin-dashboard">
 
-      <h1>Admin Dashboard</h1>
+      {/* Navbar */}
+      <nav className="admin-navbar">
+        <h2>Service Bee Admin</h2>
 
-      <button onClick={goToCategory}>
-        Change Category
-      </button>
+        <button className="logout-btn" onClick={handleLogout}>
+          Logout
+        </button>
+      </nav>
 
-      <button onClick={goToChat}>
-        Chat with Customer
-      </button>
+      {/* Dashboard Content */}
+      <div className="admin-content">
 
-      <button onClick={handleLogout}>
-        Logout
-      </button>
+        <h1>Admin Dashboard</h1>
+
+        <div className="admin-cards">
+
+          <div
+            className="admin-card"
+            onClick={() => navigate("/admin/category")}
+          >
+            <h3>Manage Categories</h3>
+            <p>Add, update, or delete service categories</p>
+          </div>
+
+          <div
+            className="admin-card"
+            onClick={() => navigate("/admin/bookings")}
+          >
+            <h3>Customer Chats</h3>
+            <p>View bookings and chat with customers</p>
+          </div>
+
+        </div>
+
+      </div>
 
     </div>
   );

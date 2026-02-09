@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import api from "../api/axios";
 import { useNavigate } from "react-router-dom";
 
+import "../style/CustomerDashboard.css";
+
 const CustomerDashboard = () => {
   const navigate = useNavigate();
 
@@ -13,6 +15,7 @@ const CustomerDashboard = () => {
   const [city, setCity] = useState("");
   const [category, setCategory] = useState("");
 
+  // Fetch logged-in user
   useEffect(() => {
     const fetchUser = async () => {
       try {
@@ -25,20 +28,28 @@ const CustomerDashboard = () => {
     fetchUser();
   }, [navigate]);
 
+  // Fetch categories and providers
   useEffect(() => {
     const loadData = async () => {
-      const catRes = await api.get("/categories");
-      setCategories(catRes.data);
+      try {
+        const catRes = await api.get("/categories");
+        // pick the array from backend response
+        setCategories(Array.isArray(catRes.data) ? catRes.data : catRes.data.categories || []);
 
-      const provRes = await api.get("/provider");
-      setProviders(provRes.data);
+        const provRes = await api.get("/provider");
+        setProviders(provRes.data);
 
-      const uniqueCities = [...new Set(provRes.data.map(p => p.city))];
-      setCities(uniqueCities);
+        // extract unique cities
+        const uniqueCities = [...new Set(provRes.data.map(p => p.city))];
+        setCities(uniqueCities);
+      } catch (err) {
+        console.error(err);
+      }
     };
     loadData();
   }, []);
 
+  // Filter providers by city and category
   const filteredProviders = providers.filter(p => {
     return (
       (city ? p.city === city : true) &&
@@ -47,13 +58,9 @@ const CustomerDashboard = () => {
   });
 
   const logout = () => {
-  localStorage.removeItem("token");
-
-  alert("Logged out successfully!");
-
-  setTimeout(() => {
-    navigate("/customer");
-    }, 300);
+    localStorage.removeItem("token");
+    alert("Logged out successfully!");
+    setTimeout(() => navigate("/customer"), 300);
   };
 
   if (!user) return <h2>Loading...</h2>;
@@ -63,7 +70,6 @@ const CustomerDashboard = () => {
       {/* NAVBAR */}
       <nav className="navbar">
         <h2>Service Bee</h2>
-        
       </nav>
 
       <div className="dashboard-body">
@@ -95,7 +101,7 @@ const CustomerDashboard = () => {
 
             <select onChange={e => setCategory(e.target.value)}>
               <option value="">All Categories</option>
-              {categories.map(cat => (
+              {Array.isArray(categories) && categories.map(cat => (
                 <option key={cat._id} value={cat._id}>
                   {cat.name}
                 </option>

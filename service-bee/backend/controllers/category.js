@@ -1,79 +1,88 @@
 import Category from "../models/Category.js";
+import AppError from "../utils/AppError.js";
 
-export const createCategory = async (req, res) => {
-  try {
-    const category = await Category.create({
-      name: req.body.name
-    });
+export const createCategory = async (req, res, next) => {
 
-    res.status(201).json(category);
-  } catch (err) {
-    res.status(400).json({ error: err.message });
+  const { name } = req.body;
+
+  if (!name) {
+    return next(new AppError("Category name is required", 400));
   }
+
+  const category = await Category.create({ name });
+
+  res.status(201).json({
+    success: true,
+    data: category
+  });
+
 };
 
-export const updateCategory = async (req, res) => {
-  try {
-    const category = await Category.findByIdAndUpdate(
-      req.params.id,
-      { name: req.body.name },
-      { new: true }
-    );
+export const updateCategory = async (req, res, next) => {
 
-    if (!category) {
-      return res.status(404).json({ message: "Category not found" });
-    }
+  const { name } = req.body;
 
-    res.json(category);
-  } catch (err) {
-    res.status(400).json({ error: err.message });
+  if (!name) {
+    return next(new AppError("Category name is required", 400));
   }
+
+  const category = await Category.findByIdAndUpdate(
+    req.params.id,
+    { name },
+    { new: true }
+  );
+
+  if (!category) {
+    return next(new AppError("Category not found", 404));
+  }
+
+  res.status(200).json({
+    success: true,
+    data: category
+  });
+
 };
 
-export const deleteCategory = async (req, res) => {
-  try {
-    const category = await Category.findByIdAndDelete(req.params.id);
+export const deleteCategory = async (req, res, next) => {
 
-    if (!category) {
-      return res.status(404).json({ message: "Category not found" });
-    }
+  const category = await Category.findByIdAndDelete(req.params.id);
 
-    res.json({ message: "Category deleted successfully" });
-  } catch (err) {
-    res.status(400).json({ error: err.message });
+  if (!category) {
+    return next(new AppError("Category not found", 404));
   }
+
+  res.status(200).json({
+    success: true,
+    message: "Category deleted successfully"
+  });
+
 };
 
 
-export const getCategories = async (req, res) => {
-  try {
+export const getCategories = async (req, res, next) => {
 
-    const page = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.limit) || 5;
-    const search = req.query.search || "";
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 5;
+  const search = req.query.search || "";
 
-    // calculate skip
-    const skip = (page - 1) * limit;
+  const skip = (page - 1) * limit;
 
-    const filter = {
-      name: { $regex: search, $options: "i" } // case-insensitive search
-    };
+  const filter = {
+    name: { $regex: search, $options: "i" }
+  };
 
-    const categories = await Category.find(filter)
-      .skip(skip)
-      .limit(limit);
+  const categories = await Category.find(filter)
+    .skip(skip)
+    .limit(limit);
 
-    // total count for pagination
-    const total = await Category.countDocuments(filter);
+  const total = await Category.countDocuments(filter);
 
-    res.json({
-      categories,
-      total,
-      page,
-      pages: Math.ceil(total / limit)
-    });
+  res.status(200).json({
+    success: true,
+    categories,
+    total,
+    page,
+    pages: Math.ceil(total / limit)
+  });
 
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
 };

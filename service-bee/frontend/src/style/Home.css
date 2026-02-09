@@ -1,0 +1,91 @@
+/* Full page dark background */
+.home-container {
+  height: 100vh;
+  background: linear-gradient(135deg, #0f172a, #020617);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Segoe UI", sans-serif;
+}
+
+
+/* Card */
+.home-card {
+  background: #111827;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.6);
+  text-align: center;
+  width: 350px;
+}
+
+
+/* Title */
+.home-title {
+  color: #f9fafb;
+  margin-bottom: 10px;
+  font-size: 28px;
+}
+
+
+/* Subtitle */
+.home-subtitle {
+  color: #9ca3af;
+  margin-bottom: 30px;
+}
+
+
+/* Buttons container */
+.home-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+
+/* Base button */
+.home-btn {
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-weight: 600;
+}
+
+
+/* Customer button */
+.customer-btn {
+  background: #2563eb;
+  color: white;
+}
+
+.customer-btn:hover {
+  background: #1d4ed8;
+  transform: translateY(-2px);
+}
+
+
+/* Provider button */
+.provider-btn {
+  background: #059669;
+  color: white;
+}
+
+.provider-btn:hover {
+  background: #047857;
+  transform: translateY(-2px);
+}
+
+
+/* Admin button */
+.admin-btn {
+  background: #dc2626;
+  color: white;
+}
+
+.admin-btn:hover {
+  background: #b91c1c;
+  transform: translateY(-2px);
+}

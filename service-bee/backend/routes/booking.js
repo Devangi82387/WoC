@@ -4,7 +4,8 @@ import {
   createBooking,
   getCustomerBookings,
   getProviderBookings,
-  updateBookingStatus
+  updateBookingStatus,
+  allBooking
 } from "../controllers/booking.js";
 
 const router = express.Router();
@@ -15,5 +16,6 @@ router.get("/customer", protect(["customer"]), getCustomerBookings);
 
 router.get("/provider", protect(["provider"]), getProviderBookings);
 router.patch("/:id/status", protect(["provider"]), updateBookingStatus);
+router.get("/all", allBooking);
 
 export default router;

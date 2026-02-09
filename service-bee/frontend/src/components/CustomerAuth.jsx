@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import api from "../api/axios";
 import { useNavigate } from "react-router-dom";
 
+import "../style/Auth.css";
+
 const CustomerAuth = () => {
   const navigate = useNavigate(); 
   const [mode, setMode] = useState("login");
